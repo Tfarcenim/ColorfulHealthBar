@@ -1,8 +1,8 @@
-package locusway.colorfulhealthbar;
+package tfar.colorfulhealthbar;
 
-import locusway.colorfulhealthbar.config.Configs;
-import locusway.colorfulhealthbar.overlay.HealthBarRenderer;
-import locusway.colorfulhealthbar.overlay.OverlayEventHandler;
+import tfar.colorfulhealthbar.config.Configs;
+import tfar.colorfulhealthbar.overlay.HealthBarRenderer;
+import tfar.colorfulhealthbar.overlay.OverlayEventHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;

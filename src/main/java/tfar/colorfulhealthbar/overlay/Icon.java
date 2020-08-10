@@ -1,4 +1,4 @@
-package locusway.colorfulhealthbar.overlay;
+package tfar.colorfulhealthbar.overlay;
 
 /*
     Class wraps the information required to draw an individual armor icon

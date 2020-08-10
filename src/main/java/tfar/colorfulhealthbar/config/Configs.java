@@ -1,4 +1,4 @@
-package locusway.colorfulhealthbar.config;
+package tfar.colorfulhealthbar.config;
 
 import com.google.common.collect.Lists;
 import net.minecraftforge.common.ForgeConfigSpec;

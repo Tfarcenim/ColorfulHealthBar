@@ -1,4 +1,4 @@
-package locusway.colorfulhealthbar.overlay;
+package tfar.colorfulhealthbar.overlay;
 
 
 import java.util.List;

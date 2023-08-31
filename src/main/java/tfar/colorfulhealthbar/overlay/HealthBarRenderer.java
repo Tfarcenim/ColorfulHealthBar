@@ -10,11 +10,10 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.client.gui.ForgeIngameGui;
-import net.minecraftforge.client.gui.IIngameOverlay;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
+import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import tfar.colorfulhealthbar.ColorfulHealthBar;
 import tfar.colorfulhealthbar.config.Configs;
-import tfar.colorfulhealthbar.config.Configs.*;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -25,7 +24,7 @@ import static tfar.colorfulhealthbar.config.Configs.*;
     Class handles the drawing of the health bar
  */
 
-public class HealthBarRenderer implements IIngameOverlay {
+public class HealthBarRenderer implements IGuiOverlay {
   private static int updateCounter = 0;
   private int playerHealth = 0;
   private int lastPlayerHealth = 0;
@@ -62,7 +61,7 @@ public class HealthBarRenderer implements IIngameOverlay {
     forceUpdateIcons = true;
   }
 
-  public void render(ForgeIngameGui gui, PoseStack stack, float f, int screenWidth, int screenHeight) {
+  public void render(ForgeGui gui, PoseStack stack, float f, int screenWidth, int screenHeight) {
     //Push to avoid lasting changes
     stack.pushPose();
     RenderSystem.enableBlend();
@@ -353,9 +352,9 @@ public class HealthBarRenderer implements IIngameOverlay {
       }
     }
 
-    gui.left_height += 10;
+    gui.leftHeight += 10;
     if (absorb > 0) {
-      gui.left_height += 10;
+      gui.leftHeight += 10;
     }
 
     RenderSystem.disableBlend();
@@ -377,7 +376,7 @@ public class HealthBarRenderer implements IIngameOverlay {
     stack.scale(1, 1, 1);
     bind(ICON_VANILLA);
     if (absorb > 0) {
-      gui.left_height += 10;
+      gui.leftHeight += 10;
     }
     stack.popPose();
     Minecraft.getInstance().getProfiler().pop();
@@ -425,7 +424,7 @@ public class HealthBarRenderer implements IIngameOverlay {
     }
   }
 
-  public void drawStringOnHUD(ForgeIngameGui gui, PoseStack stack,String string, int xOffset, int yOffset, int color, double scale) {
+  public void drawStringOnHUD(ForgeGui gui, PoseStack stack,String string, int xOffset, int yOffset, int color, double scale) {
     if (infoLevel == InfoLevel.NONE) return;
     yOffset += 9 * (1 - scale);
     xOffset += 9 * (1 - scale);

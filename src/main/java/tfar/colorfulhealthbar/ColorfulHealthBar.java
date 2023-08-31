@@ -1,9 +1,9 @@
 package tfar.colorfulhealthbar;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.gui.ForgeIngameGui;
-import net.minecraftforge.client.gui.OverlayRegistry;
-import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.IExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -32,9 +32,19 @@ public class ColorfulHealthBar {
   }
 
   public void setup(){
-    OverlayRegistry.registerOverlayBelow(ForgeIngameGui.PLAYER_HEALTH_ELEMENT,MODID, HealthBarRenderer.RENDERER);
-    OverlayRegistry.enableOverlay(ForgeIngameGui.PLAYER_HEALTH_ELEMENT,false);
     FMLJavaModLoadingContext.get().getModEventBus().addListener(this::bakeConfigs);
+    FMLJavaModLoadingContext.get().getModEventBus().addListener(this::disableVaniBar);
+    MinecraftForge.EVENT_BUS.addListener(this::disableVanillaBar);
     ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.CLIENT, Configs.CLIENT_SPEC);
+  }
+
+  public void disableVaniBar(RegisterGuiOverlaysEvent e) {
+    e.registerBelow(VanillaGuiOverlay.PLAYER_HEALTH.id(),MODID, HealthBarRenderer.RENDERER);
+  }
+
+  public void disableVanillaBar(RenderGuiOverlayEvent e) {
+    if (e.getOverlay() == VanillaGuiOverlay.PLAYER_HEALTH.type()) {
+      e.setCanceled(true);
+    }
   }
 }

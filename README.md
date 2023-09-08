@@ -1,2 +1,2 @@
 # Colorful Health Bar
-* Compacts multiple heart rows into one wiyth configurable colors for each layer
+* Compacts multiple heart rows into one with configurable colors for each layer

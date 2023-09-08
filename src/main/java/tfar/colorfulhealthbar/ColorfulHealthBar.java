@@ -33,12 +33,12 @@ public class ColorfulHealthBar {
 
   public void setup(){
     FMLJavaModLoadingContext.get().getModEventBus().addListener(this::bakeConfigs);
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(this::disableVaniBar);
+    FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerBar);
     MinecraftForge.EVENT_BUS.addListener(this::disableVanillaBar);
     ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.CLIENT, Configs.CLIENT_SPEC);
   }
 
-  public void disableVaniBar(RegisterGuiOverlaysEvent e) {
+  public void registerBar(RegisterGuiOverlaysEvent e) {
     e.registerBelow(VanillaGuiOverlay.PLAYER_HEALTH.id(),MODID, HealthBarRenderer.RENDERER);
   }
 

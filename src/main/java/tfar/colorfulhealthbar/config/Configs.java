@@ -26,6 +26,7 @@ public class Configs {
         public static ForgeConfigSpec.ConfigValue<List<? extends String>> absorptionColorValues;
         public static ForgeConfigSpec.EnumValue<InfoLevel> infoLevel;
         public static ForgeConfigSpec.DoubleValue textScale;
+        public static ForgeConfigSpec.BooleanValue shouldLoop;
 
         HealthConfig(ForgeConfigSpec.Builder builder) {
             builder.push("general");
@@ -43,6 +44,9 @@ public class Configs {
             textScale = builder
                     .comment("Size of index number")
                     .defineInRange("text size", .75,0,1);
+            shouldLoop = builder.comment("Whether the heart colors should loop if the cap is reached")
+                    .translation("text.colorfulhealthbar.config.should_loop")
+                    .define("should loop",false);
             builder.pop();
         }
     }
@@ -50,10 +54,12 @@ public class Configs {
     public static List<? extends String> absorptionColorValues = new ArrayList<>();
     public static InfoLevel infoLevel = InfoLevel.ALL;
     public static double textScale = .75;
+    public static boolean shouldloop;
     public static void bake(){
         healthColorValues = HealthConfig.healthColorValues.get();
         absorptionColorValues = HealthConfig.absorptionColorValues.get();
         infoLevel = HealthConfig.infoLevel.get();
         textScale = HealthConfig.textScale.get();
+        shouldloop = HealthConfig.shouldLoop.get();
     }
 }

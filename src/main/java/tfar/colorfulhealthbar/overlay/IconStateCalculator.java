@@ -1,6 +1,8 @@
 package tfar.colorfulhealthbar.overlay;
 
 
+import tfar.colorfulhealthbar.config.Configs;
+
 import java.util.List;
 
 /*
@@ -10,13 +12,23 @@ public class IconStateCalculator {
   private static void setIconColor(Icon icon, List<? extends String> colors, int scale, int value) {
     int currentScale = scale;
     int previousScale = scale - 1;
+    int colorCount = colors.size();
 
-    //Force last color if we have run out of colors on the list
-    if (currentScale > colors.size() - 1) {
-      currentScale = colors.size() - 1;
+    //Force last color if we have run out of colors on the list or loop if enabled
+    if (currentScale > colorCount - 1) {
+      if (Configs.shouldloop) {
+        currentScale = currentScale % colorCount;
+      } else {
+        currentScale = colorCount - 1;
+      }
     }
-    if (previousScale > colors.size() - 1) {
-      previousScale = colors.size() - 1;
+    if (previousScale > colorCount - 1) {
+
+      if (Configs.shouldloop) {
+        previousScale = currentScale - 1;
+      } else {
+        previousScale = currentScale;
+      }
     }
 
     //Previous scale is -1 between 0 and 20 points of health, so reset to 0 for sane value

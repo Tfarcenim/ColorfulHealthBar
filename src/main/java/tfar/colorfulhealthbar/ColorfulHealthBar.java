@@ -19,7 +19,8 @@ public class ColorfulHealthBar {
 
   public ColorfulHealthBar() {
     if (FMLEnvironment.dist.isClient()) {
-      ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, ()->new IExtensionPoint.DisplayTest(   ()->"anything. i don't care", // if i'm actually on the server, this string is sent but i'm a client only mod, so it won't be
+      ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class,
+              ()->new IExtensionPoint.DisplayTest(()->"anything. i don't care", // if i'm actually on the server, this string is sent but i'm a client only mod, so it won't be
               (remoteversionstring,networkbool)->networkbool)); // i accept anything from the server, by returning true if it's asking about the server
       setup();
     } else {

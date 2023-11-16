@@ -110,7 +110,7 @@ public class HealthBarRenderer implements IGuiOverlay {
       if (player.hasEffect(MobEffects.REGENERATION))
         regen = updateCounter % Mth.ceil(maxHealth + 5.0F);
 
-      Minecraft.getInstance().getProfiler().push("health");
+      Minecraft.getInstance().getProfiler().push(ColorfulHealthBar.MODID);
 
       for (int i = 9; i >= 0; --i) {
         healthIcons = IconStateCalculator.calculateIcons(health, Configs.healthColorValues
@@ -364,13 +364,14 @@ public class HealthBarRenderer implements IGuiOverlay {
       RenderSystem.disableBlend();
 
       //Revert our state back
-      //Revert our state back
       stack.scale((float) textScale, (float) textScale, 1);
-      int index = (int) Math.max(Math.ceil(health / 20f), 1);
+      int healthIndex = Configs.shouldloop ? ((int) Math.ceil(health / 20f) - 1) % (healthColorValues.size()) : (int)
+              Mth.clamp(Math.ceil(health / 20f) - 1, 0, healthColorValues.size() - 1);
       String[] info = getInfo(health, (int) maxHealth, absorb);
       if (info != null) {
         int textOffset = gui.getFont().width(info[0]);
-        drawStringOnHUD(gui, stack, info[0], xStart - textOffset + 3, yStart, Integer.decode(healthColorValues.get(Math.min(index - 1, healthColorValues.size() - 1))), textScale);
+        int healthTextColor = Integer.decode(healthColorValues.get(healthIndex));
+        drawStringOnHUD(gui, stack, info[0], xStart - textOffset + 3, yStart, healthTextColor, textScale);
         if (absorb > 0) {
           textOffset = gui.getFont().width(info[1]);
           drawStringOnHUD(gui, stack, info[1], xStart - textOffset - 1, yStart - 10, Integer.decode(absorptionColorValues.get(Math.min((int) Math.ceil(absorb / 20d) - 1, absorptionColorValues.size() - 1))), textScale);
